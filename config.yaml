@@ -3,6 +3,8 @@ video: ~
 
 audio:
     source: http://10.32.0.126:8000/insanity320.mp3
+    # source: hw:0,0
+    # source_format: alsa
     encoder: DASH::Encoder::FFmpeg
     codec: libvorbis
     bitrates:
@@ -13,7 +15,7 @@ audio:
 # Absolute path to the webroot. NEEDS A TRAILING SLASH
 root: /var/www/html/dash/insanity/
 chunk_length: 10000
-history: 3600000
-
+#history: 3600000
+history: 120000
 
 logging: Logger::DEBUG

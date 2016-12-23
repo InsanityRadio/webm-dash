@@ -31,7 +31,7 @@ module DASH
 				@encoder.start! @current_chunk, "#{prefix}%d#{CHUNK_EXTENSION}", "#{prefix}0.#{HEAD_EXTENSION}"
 				DASH.logger.error("Encoder quit. Restarting it.")
 
-				dispatch DASH::Event::Crash.new, @current_chunk, self
+				dispatch DASH::Event::Crash.new, @current_chunk += 1, self
 			}})
 
 		end	

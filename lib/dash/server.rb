@@ -7,7 +7,7 @@ module DASH
 			@config = YAML::load(file)
 			$start = Time.now
 
-			DASH.logger.level = Object.get(@config["logging"]) rescue Logger::INFO
+			DASH.logger.level = Object.const_get(@config["logging"]) rescue Logger::INFO
 
 			DASH::Controller.new @config
 		end

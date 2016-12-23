@@ -28,9 +28,8 @@ ffmpeg \
 	
 =end
 
-				p = [
-					"ffmpeg",
-					"-i", @input,
+				cmd = [
+					"-i", @input[0],
 					"-map", "0",
 					"-c:a", @codec,
 					"-b:a", @bitrate,
@@ -40,9 +39,11 @@ ffmpeg \
 					"-chunk_start_index", initial_chunk.to_s,
 					chunk_path]
 
-				p p
+				cmd.unshift("-f", @input[1]) unless @input[1].nil?
 
-				stdout, stderr, status = Open3.capture3(*p)
+				DASH.logger.debug("Running ffmpeg with `#{cmd.join(" ")}`.")
+
+				stdout, stderr, status = Open3.capture3("ffmpeg", *cmd)
 
 				DASH.logger.error("FFmpeg exited! Exit code: #{status}")
 				status == 0

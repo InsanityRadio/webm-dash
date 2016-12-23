@@ -13,6 +13,16 @@ module DASH
 				@chunk_length = chunk_length
 			end
 
+			def codec2
+
+				@codec.gsub "lib", ""
+
+			end
+
+			def mime
+				"audio/webm"
+			end
+
 		end
 	end
 end

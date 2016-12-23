@@ -29,6 +29,7 @@ module DASH
 
 		def reset! latest_chunk
 
+			raise "Don't do this. "
 			@start_chunk = latest_chunk
 			update! latest_chunk
 
@@ -38,14 +39,18 @@ module DASH
 
 		def render_manifest latest_chunk
 
-			elapsed = [Time.now.to_i - $start.to_i, @config["history"] / 1000].min
-			start_chunk = [@start_chunk, latest_chunk - (@config["history"] / @config["chunk_length"])].max
+			#elapsed = [Time.now.to_i - $start.to_i, @config["history"] / 1000].min
+			#start_chunk = [@start_chunk, latest_chunk - (@config["history"] / @config["chunk_length"])].max
+			elapsed = Time.now.to_i - $start.to_i
+			start_chunk = @start_chunk
 			variables = {
 				:config => @config,
 				:history => elapsed,
 				:start_chunk => start_chunk,
 				:start_time => (Time.now - elapsed).utc.iso8601,
-				:encoders => @encoder_configs
+				:encoders => @encoder_configs,
+				:mime => "audio/webm",
+				:codec => @encoder_configs.map { | c | c.codec2 }.uniq
 			}
 			script = File.read(File.expand_path('./manifest/audio.xml.erb', File.dirname(__FILE__)))
 			erb(script, variables)

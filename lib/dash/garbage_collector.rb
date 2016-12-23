@@ -35,7 +35,7 @@ module DASH
 
 				matches = f.match(@pattern)
 				next if matches.nil?
-				next if matches[1].to_i > last_acceptable(current_chunk)
+				next if matches[1].to_i >= last_acceptable(current_chunk)
 				deletable << f 
 
 			end
@@ -45,7 +45,7 @@ module DASH
 
 		# Remove those pesky old files!
 		def collect! current_chunk
-			DASH.logger.debug("Running GC")
+			DASH.logger.debug("Running GC to clean up old chunks")
 			FileUtils.rm collect(current_chunk)
 		end
 

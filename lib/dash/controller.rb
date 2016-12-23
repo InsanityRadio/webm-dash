@@ -25,7 +25,7 @@ module DASH
 		private
 		def encode! path, spec
 
-			input = spec["source"]
+			input = [spec["source"], spec["source_format"]]
 			bitrates = spec["bitrates"]
 
 			bitrates.each do | b | 
@@ -62,8 +62,8 @@ module DASH
 		end
 
 		def on_crash event, latest_chunk, caller
-			$start = Time.now
-			@manifest.reset! latest_chunk
+			#$start = Time.now
+			#@manifest.reset! latest_chunk
 		end
 
 	end
