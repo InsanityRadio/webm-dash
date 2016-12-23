@@ -1,0 +1,31 @@
+DASH server spec
+
+- Runs FFmpeg to get 'bitrate/%d.w'
+- Watches for new bitrate/%d.w (the file is created as soon as the)
+- Generates a new manifest file with updated timeline
+- Removes chunks that are too small
+
+
+
+Server
+	should create/load config
+	should create a controller with that config
+
+Controller
+	should instantiate GC, Encoder(s), Manifest w/config
+	should listen to Encoder for file changes 
+	should listen to Encoder for crashes
+
+GarbageCollector
+	should clear up old files and keep an index of chunks
+
+Encoder (interface)
+	should track current "chunk"
+	should listen to GarbageCollector for file changes
+
+FFmpeg
+	should run FFmpeg and restart it if it crashes
+	should run ffmpeg in a thread or something
+
+Manifest
+	should generate a valid XML file that contains the manifest + paths

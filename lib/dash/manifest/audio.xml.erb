@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MPD
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="urn:mpeg:DASH:schema:MPD:2011"
+	xsi:schemaLocation="urn:mpeg:DASH:schema:MPD:2011"
+	type="dynamic"
+	minBufferTime="PT1S"
+	profiles="urn:mpeg:dash:profile:isoff-live:2011"
+	availabilityStartTime="<%= start_time %>"
+	timeShiftBufferDepth="PT<%= config["history"] / 1000 %>S"
+	minimumUpdatePeriod="PT10S">
+<Period id="0" start="PT0S" >
+	<AdaptationSet id="0" mimeType="audio/webm" codecs="vorbis" bitstreamSwitching="true" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
+		<ContentComponent id="1" type="audio"/>
+		<SegmentTemplate timescale="1000" duration="<%= config["chunk_length"] %>" media="a/$RepresentationID$_$Number$.w" startNumber="<%= start_chunk %>" initialization="a/$RepresentationID$_0.h"/>
+<% encoders.each do | enc | %>
+		<Representation id="<%= enc.bitrate %>" bandwidth="<%= enc.bitrate.to_i * 1000 %>" audioSamplingRate="48000" codecs="vorbis" mimeType="audio/webm" startsWithSAP="1"></Representation>
+<%#=		<!--<SegmentTemplate presentationTimeOffset="0">
+			<SegmentTimeline>
+				<S t="190148" d="10008"/>
+				<S t="200156" d="10008"/>
+			</SegmentTimeline>
+		</SegmentTemplate>-->%>
+<% end %>
+	</AdaptationSet>
+</Period>
+</MPD>
