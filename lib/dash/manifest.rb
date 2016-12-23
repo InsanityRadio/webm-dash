@@ -10,6 +10,8 @@ module DASH
 			@path = path
 			@start_chunk = start_chunk.to_i
 			@encoder_configs = []
+			@period_id = 0
+			@time_since_crash = 0
 
 		end
 
@@ -29,8 +31,10 @@ module DASH
 
 		def reset! latest_chunk
 
-			raise "Don't do this. "
 			@start_chunk = latest_chunk
+
+			@period_id += 1
+			@time_since_crash = Time.now.to_f - $start.to_f 
 			update! latest_chunk
 
 		end
@@ -50,7 +54,9 @@ module DASH
 				:start_time => (Time.now - elapsed).utc.iso8601,
 				:encoders => @encoder_configs,
 				:mime => "audio/webm",
-				:codec => @encoder_configs.map { | c | c.codec2 }.uniq
+				:codec => @encoder_configs.map { | c | c.codec2 }.uniq,
+				:time_since_crash => @time_since_crash,
+				:period_id => @period_id
 			}
 			script = File.read(File.expand_path('./manifest/audio.xml.erb', File.dirname(__FILE__)))
 			erb(script, variables)

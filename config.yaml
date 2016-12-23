@@ -6,7 +6,7 @@ audio:
     # source: hw:0,0
     # source_format: alsa
     encoder: DASH::Encoder::FFmpeg
-    codec: libvorbis
+    codec: libopus
     bitrates:
         - 128k
         - 256k

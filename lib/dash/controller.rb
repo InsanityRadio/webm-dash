@@ -63,7 +63,7 @@ module DASH
 
 		def on_crash event, latest_chunk, caller
 			#$start = Time.now
-			#@manifest.reset! latest_chunk
+			@manifest.reset! latest_chunk
 		end
 
 	end

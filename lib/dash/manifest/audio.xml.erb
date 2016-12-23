@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:dash:schema:mpd:2011"  xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 DASH-MPD.xsd" type="dynamic" minimumUpdatePeriod="PT10S" minBufferTime="PT<%= config["chunk_length"] * 2 / 1000 %>S" timeShiftBufferDepth="PT<%= config["history"] / 1000 %>S" availabilityStartTime="<%= start_time %>" profiles="urn:mpeg:dash:profile:isoff-live:2011">
-<Period id="0" start="PT0S" >
+<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:dash:schema:mpd:2011"  xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 DASH-MPD.xsd" type="dynamic" minimumUpdatePeriod="PT10S" minBufferTime="PT<%= config["chunk_length"] * 2 / 1000 %>S" timeShiftBufferDepth="PT<%= config["history"] / 1000 + 0.1 %>S" availabilityStartTime="<%= start_time %>" profiles="urn:mpeg:dash:profile:isoff-live:2011">
+<Period id="<%= period_id %>" start="PT<%= time_since_crash.to_f %>S">
 	<AdaptationSet id="0" mimeType="<%= mime %>" codecs="<%= codec.join(" ") %>" bitstreamSwitching="true" subsegmentAlignment="true" subsegmentStartsWithSAP="1">
 		<ContentComponent id="1" type="audio"/>
 		<SegmentTemplate timescale="1000" duration="<%= config["chunk_length"] %>" media="a/$RepresentationID$_$Number$.w" startNumber="<%= start_chunk %>" initialization="a/$RepresentationID$_0.h"/>
