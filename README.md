@@ -2,9 +2,7 @@
 
 WEBM-DASH is a Ruby server that can, with a bit of help from FFmpeg, create WEBM-based DASH-encoded audio streams. (Video doesn't work yet, but is planned).
 
-It's not perfect - different bitrates don't perfectly align up, but it's a work in progress and a breeze to use. Timings need to be sorted, so there is a small amount of drift. This is an apparently limitation of FFmpeg (/lack of documentation). 
-
-The server is acceptably (but non-transparently at the moment) 
+It's not perfect yet - different bitrates don't perfectly align up, but it's a work in progress and a breeze to use. Timings need to be sorted, so there is the potential for a small amount of drift. This is an apparently limitation of FFmpeg (/lack of documentation). 
 
 
 ## Installation
@@ -55,4 +53,5 @@ Timings are very slightly off as we're relying on Ruby to spot new chunks as soo
 
 There's no support for MPEG-DASH, as FFmpeg doesn't support it. It could probably be supported through MP4box. 
 
-There are currently no tests. 
+There are currently no unit tests. We didn't have time during development.
+
