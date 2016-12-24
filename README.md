@@ -4,7 +4,7 @@ WEBM-DASH is a Ruby server that can, with a bit of help from FFmpeg, create WEBM
 
 It's not perfect yet - different bitrates don't perfectly align up, but it's a work in progress and a breeze to use. Timings need to be sorted, so there is the potential for a small amount of drift. This is an apparently limitation of FFmpeg (/lack of documentation). 
 
-**Project shelved due to hardware constraints.**
+**Project shelved due to hardware constraints (encoding VP8/9 is expensive, especially when you have no hardware budget).**
 
 ## Installation
 
